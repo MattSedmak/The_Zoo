@@ -22,10 +22,8 @@ export const AnimailDetail = () => {
   };
 
   let animalsFromLs = JSON.parse(localStorage.getItem('animals') || '{}');
-  const [storedAnimals, setStoredAnimals] =
-    useState<IAnimalDetail[]>(animalsFromLs);
-  const [detailedAnimal, setDetailedAnimal] =
-    useState<IAnimalDetail>(initialState);
+  const [storedAnimals, setStoredAnimals] = useState<IAnimalDetail[]>(animalsFromLs);
+  const [detailedAnimal, setDetailedAnimal] = useState<IAnimalDetail>(initialState);
 
   useEffect(() => {
     storedAnimals.map((animal) => {
@@ -38,7 +36,18 @@ export const AnimailDetail = () => {
   useEffect(() => {
     setStoredAnimals(storedAnimals);
     localStorage.setItem('animals', JSON.stringify(storedAnimals));
+    console.log(storedAnimals);
   }, [detailedAnimal, storedAnimals]);
+
+  useEffect(() => {
+    if (detailedAnimal.isFed === true) {
+      let timeout = setTimeout(() => {
+        detailedAnimal.isFed = false;
+        setDetailedAnimal({ ...detailedAnimal });
+      }, 5000);
+      return () => clearTimeout(timeout);
+    }
+  }, [detailedAnimal]);
 
   const feedHandler = () => {
     detailedAnimal.isFed = true;
@@ -50,8 +59,8 @@ export const AnimailDetail = () => {
     <div>
       {/* <img src={detailedAnimal.imageUrl} alt='' /> */}
       <p>{detailedAnimal.name}</p>
-      <p>Fed: {detailedAnimal.isFed ? 'been fed' : 'hungry'}</p>
-      <p>Matat sist: {detailedAnimal.lastFed.toLocaleString('it-EU')}</p>
+      <p>Status: {detailedAnimal.isFed ? 'been fed' : 'hungry'}</p>
+      <p>Matat sist: {detailedAnimal.lastFed.toString()}</p>
       <button disabled={detailedAnimal.isFed} onClick={feedHandler}>
         {detailedAnimal.isFed ? 'Is fed' : 'Feed me'}
       </button>
