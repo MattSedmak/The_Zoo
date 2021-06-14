@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
 import { IAnimalDetail } from '../../models/AnimalDetail';
+import FeedBadge from '../UI/FeedBadge';
 
 export const AnimailDetail = () => {
   interface Iparams {
@@ -24,10 +24,22 @@ export const AnimailDetail = () => {
   let animalsFromLs = JSON.parse(localStorage.getItem('animals') || '{}');
   const [storedAnimals, setStoredAnimals] = useState<IAnimalDetail[]>(animalsFromLs);
   const [detailedAnimal, setDetailedAnimal] = useState<IAnimalDetail>(initialState);
+  const [needsFeeding, setNeedsFeeding] = useState(false);
 
   useEffect(() => {
     storedAnimals.map((animal) => {
       if (animal.id === Number(id)) {
+        let diff = new Date().getTime() - new Date(animal.lastFed).getTime();
+        let diffHours = Math.floor(diff / 1000);
+
+        if (diffHours >= 10) {
+          animal.isFed = false;
+          localStorage.setItem('animals', JSON.stringify(storedAnimals));
+          setDetailedAnimal(animal);
+        }
+        if (diffHours >= 12) {
+          setNeedsFeeding(true);
+        }
         setDetailedAnimal(animal);
       }
     });
@@ -36,29 +48,20 @@ export const AnimailDetail = () => {
   useEffect(() => {
     setStoredAnimals(storedAnimals);
     localStorage.setItem('animals', JSON.stringify(storedAnimals));
-    console.log(storedAnimals);
   }, [detailedAnimal, storedAnimals]);
-
-  useEffect(() => {
-    if (detailedAnimal.isFed === true) {
-      let timeout = setTimeout(() => {
-        detailedAnimal.isFed = false;
-        setDetailedAnimal({ ...detailedAnimal });
-      }, 5000);
-      return () => clearTimeout(timeout);
-    }
-  }, [detailedAnimal]);
 
   const feedHandler = () => {
     detailedAnimal.isFed = true;
     detailedAnimal.lastFed = new Date();
     setDetailedAnimal({ ...detailedAnimal });
+    setNeedsFeeding(false);
   };
 
   return (
     <div>
       {/* <img src={detailedAnimal.imageUrl} alt='' /> */}
       <p>{detailedAnimal.name}</p>
+      {needsFeeding && <FeedBadge />}
       <p>Status: {detailedAnimal.isFed ? 'been fed' : 'hungry'}</p>
       <p>Matat sist: {detailedAnimal.lastFed.toString()}</p>
       <button disabled={detailedAnimal.isFed} onClick={feedHandler}>

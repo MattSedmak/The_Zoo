@@ -20,10 +20,8 @@ const Animals = () => {
           setIsError(true);
         });
     } else {
-      let storedAnimals = localStorage.getItem('animals');
-      if (typeof storedAnimals === 'string') {
-        setAnimals(JSON.parse(storedAnimals));
-      }
+      let storedAnimals = JSON.parse(localStorage.getItem('animals') || '{}');
+      setAnimals(storedAnimals);
     }
   }, []);
 
