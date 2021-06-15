@@ -3,7 +3,12 @@ import { useParams } from 'react-router-dom';
 import { IAnimalDetail } from '../../models/AnimalDetail';
 import FeedBadge from '../UI/FeedBadge';
 
-export const AnimailDetail = () => {
+interface feedProps {
+  onFeedAnimal: (fed: boolean) => void;
+  feed: boolean;
+}
+
+export const AnimailDetail = (props: feedProps) => {
   interface Iparams {
     id: string;
   }
@@ -24,26 +29,27 @@ export const AnimailDetail = () => {
   let animalsFromLs = JSON.parse(localStorage.getItem('animals') || '{}');
   const [storedAnimals, setStoredAnimals] = useState<IAnimalDetail[]>(animalsFromLs);
   const [detailedAnimal, setDetailedAnimal] = useState<IAnimalDetail>(initialState);
-  const [needsFeeding, setNeedsFeeding] = useState(false);
+  const { feed, onFeedAnimal } = props;
 
   useEffect(() => {
     storedAnimals.map((animal) => {
       if (animal.id === Number(id)) {
         let diff = new Date().getTime() - new Date(animal.lastFed).getTime();
         let diffHours = Math.floor(diff / 1000);
-
         if (diffHours >= 10) {
           animal.isFed = false;
           localStorage.setItem('animals', JSON.stringify(storedAnimals));
           setDetailedAnimal(animal);
         }
-        if (diffHours >= 12) {
-          setNeedsFeeding(true);
+        if (diffHours >= 12 && animal.isFed === false) {
+          onFeedAnimal(true);
+        } else {
+          onFeedAnimal(false);
         }
         setDetailedAnimal(animal);
       }
     });
-  }, [id, storedAnimals]);
+  }, [id, storedAnimals, onFeedAnimal]);
 
   useEffect(() => {
     setStoredAnimals(storedAnimals);
@@ -54,14 +60,14 @@ export const AnimailDetail = () => {
     detailedAnimal.isFed = true;
     detailedAnimal.lastFed = new Date();
     setDetailedAnimal({ ...detailedAnimal });
-    setNeedsFeeding(false);
+    props.onFeedAnimal(false);
   };
 
   return (
     <div>
       {/* <img src={detailedAnimal.imageUrl} alt='' /> */}
       <p>{detailedAnimal.name}</p>
-      {needsFeeding && <FeedBadge />}
+      {feed && <FeedBadge />}
       <p>Status: {detailedAnimal.isFed ? 'been fed' : 'hungry'}</p>
       <p>Matat sist: {detailedAnimal.lastFed.toString()}</p>
       <button disabled={detailedAnimal.isFed} onClick={feedHandler}>
