@@ -1,46 +1,19 @@
-# Getting Started with Create React App
+# The Zoo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was built with React and Styled components.
 
-## Available Scripts
+## The brief
 
-In the project directory, you can run:
+Create a SPA (in react with typescript) that contains a start page where the animals are presented with names and a short description. It should be possible to click on an animal to see more information about this animal via an own route. From the animal's own page, you should be able to mark whether the animal is now fed or not via a button called Feed animal. When you click on this button, the status of the animal must change so that it appears that it has been fed. And it should no longer be possible to click the button. You also need to enter the time the animal was fed.
 
-### `npm start`
+The next time you go to the animal's side, if more than three hours have passed since the last feeding it must be possible to feed the animal again. For a little extra challenge, you should present a small notice on the start page, as well as on the animal side, that an animal needs to be fed if it is more than four hours since the animal was fed.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Installation and Start
+
+Clone the repo `https://github.com/MattSedmak/The_Zoo.git`
+Rum `npm install`
+Run `npm start` this runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view the app in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
