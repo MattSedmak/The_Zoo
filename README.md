@@ -10,8 +10,8 @@ The next time you go to the animal's side, if more than three hours have passed 
 
 ### Installation and Start
 
-Clone the repo `https://github.com/MattSedmak/The_Zoo.git`
-Rum `npm install`
+Clone the repo `https://github.com/MattSedmak/The_Zoo.git`.\
+Ru. `npm install`.\
 Run `npm start` this runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view the app in the browser.
 
