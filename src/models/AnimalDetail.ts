@@ -1,6 +1,7 @@
-import { IAnimal } from './Animal';
-
-export interface IAnimalDetail extends IAnimal {
+export interface IAnimalDetail {
+  id: number;
+  name: string;
+  shortDescription: string;
   latinName: string;
   longDescription: string;
   imageUrl: string;

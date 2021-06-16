@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { IAnimalDetail } from '../../models/AnimalDetail';
 import FeedBadge from '../UI/FeedBadge';
+import { Container, Image, Name, Description, Button } from './AnimalDetailStyles';
 
 interface feedProps {
   onFeedAnimal: (fed: boolean) => void;
@@ -35,13 +36,13 @@ export const AnimailDetail = (props: feedProps) => {
     storedAnimals.map((animal) => {
       if (animal.id === Number(id)) {
         let diff = new Date().getTime() - new Date(animal.lastFed).getTime();
-        let diffHours = Math.floor(diff / 1000);
-        if (diffHours >= 10) {
+        let diffHours = Math.floor(diff / (1000 * 60 * 60));
+        if (diffHours >= 3) {
           animal.isFed = false;
           localStorage.setItem('animals', JSON.stringify(storedAnimals));
           setDetailedAnimal(animal);
         }
-        if (diffHours >= 12 && animal.isFed === false) {
+        if (diffHours >= 4 && animal.isFed === false) {
           onFeedAnimal(true);
         } else {
           onFeedAnimal(false);
@@ -64,15 +65,23 @@ export const AnimailDetail = (props: feedProps) => {
   };
 
   return (
-    <div>
-      {/* <img src={detailedAnimal.imageUrl} alt='' /> */}
-      <p>{detailedAnimal.name}</p>
-      {feed && <FeedBadge />}
-      <p>Status: {detailedAnimal.isFed ? 'been fed' : 'hungry'}</p>
-      <p>Matat sist: {detailedAnimal.lastFed.toString()}</p>
-      <button disabled={detailedAnimal.isFed} onClick={feedHandler}>
-        {detailedAnimal.isFed ? 'Is fed' : 'Feed me'}
-      </button>
-    </div>
+    <Container>
+      <div>
+        <Image src={detailedAnimal.imageUrl} alt='Animal profile image' />
+      </div>
+      <Name>
+        {detailedAnimal.name} {feed && <FeedBadge />}
+      </Name>
+      <p>
+        <strong>Status:</strong> {detailedAnimal.isFed ? 'Matad' : 'hungrig'}
+      </p>
+      <p>
+        <strong>Matat sist:</strong> {detailedAnimal.lastFed.toLocaleString()}
+      </p>
+      <Description>{detailedAnimal.longDescription}</Description>
+      <Button disabled={detailedAnimal.isFed} onClick={feedHandler}>
+        {detailedAnimal.isFed ? 'Matad' : 'Mata mig'}
+      </Button>
+    </Container>
   );
 };

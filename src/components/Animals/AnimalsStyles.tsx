@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-max-width 40rem;
-width:90%;
-margin: 2rem auto;
-`;
-
-export const Heading = styled.h3`
-  font-size: 2rem;
-  text-align: center;
+  width: 95%;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: flex-start;
+  align-items: flex-start;
 `;

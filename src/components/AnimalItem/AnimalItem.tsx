@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { IAnimalDetail } from '../../models/AnimalDetail';
 import FeedBadge from '../UI/FeedBadge';
 import { Container, Heading, StyledLink } from './AnimalItemStyles';
@@ -13,8 +12,8 @@ const AnimalItem = (props: itemProps) => {
 
   useEffect(() => {
     let diff = new Date().getTime() - new Date(props.animal.lastFed).getTime();
-    let diffHours = Math.floor(diff / 1000);
-    if (diffHours >= 12) {
+    let diffHours = Math.floor(diff / (1000 * 60 * 60));
+    if (diffHours >= 4) {
       setPleaseFeed(true);
     }
   }, [pleaseFeed]);
@@ -25,7 +24,6 @@ const AnimalItem = (props: itemProps) => {
         {props.animal.name} {pleaseFeed && <FeedBadge />}
       </Heading>
       <p>{props.animal.shortDescription}</p>
-
       <StyledLink to={`/animal/${props.animal.id}`}>Läs mer</StyledLink>
     </Container>
   );

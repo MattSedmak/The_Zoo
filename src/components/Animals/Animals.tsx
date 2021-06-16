@@ -1,7 +1,7 @@
 import AnimalItem from '../AnimalItem/AnimalItem';
 import ErrorMsg from '../UI/ErrorMsg';
 import { IAnimalDetail } from '../../models/AnimalDetail';
-import { Container, Heading } from './AnimalsStyles';
+import { Container } from './AnimalsStyles';
 
 interface animalProps {
   animals: IAnimalDetail[];
@@ -15,7 +15,6 @@ const Animals = (props: animalProps) => {
 
   return (
     <Container>
-      <Heading>Check out our animals</Heading>
       {props.error && <ErrorMsg />}
       {zooAnimals}
     </Container>
