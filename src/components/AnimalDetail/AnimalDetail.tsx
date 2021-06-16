@@ -64,6 +64,7 @@ export const AnimailDetail = (props: feedProps) => {
     props.onFeedAnimal(false);
   };
 
+  const newDate = new Date(detailedAnimal.lastFed).toLocaleString();
   return (
     <Container>
       <div>
@@ -76,7 +77,7 @@ export const AnimailDetail = (props: feedProps) => {
         <strong>Status:</strong> {detailedAnimal.isFed ? 'Matad' : 'hungrig'}
       </p>
       <p>
-        <strong>Matat sist:</strong> {detailedAnimal.lastFed.toLocaleString()}
+        <strong>Matat sist:</strong> {newDate}
       </p>
       <Description>{detailedAnimal.longDescription}</Description>
       <Button disabled={detailedAnimal.isFed} onClick={feedHandler}>
