@@ -8,10 +8,10 @@ Create a SPA (in react with typescript) that contains a start page where the ani
 
 The next time you go to the animal's side, if more than three hours have passed since the last feeding it must be possible to feed the animal again. For a little extra challenge, you should present a small notice on the start page, as well as on the animal side, that an animal needs to be fed if it is more than four hours since the animal was fed.
 
-### Installation and Start
+## Installation and Start
 
 Clone the repo `https://github.com/MattSedmak/The_Zoo.git`.\
-Ru. `npm install`.\
+Run `npm install`.\
 Run `npm start` this runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view the app in the browser.
 
