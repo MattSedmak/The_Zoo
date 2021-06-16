@@ -6,6 +6,7 @@ import { AnimailDetail } from './components/AnimalDetail/AnimalDetail';
 import { IAnimalDetail } from './models/AnimalDetail';
 import PageNotFound from './components/UI/PageNotFound';
 import styled from 'styled-components';
+import { GlobalStyle } from './GlobalStyles';
 
 const Heading = styled.h1`
   font-size: 3rem;
@@ -34,16 +35,17 @@ function App() {
     }
   }, [needsFeeding]);
 
-  const feedAnimalHandler = (isFed: boolean) => {
-    setNeedsFeeding(isFed);
+  const feedAnimalHandler = (hungry: boolean) => {
+    setNeedsFeeding(hungry);
   };
 
   return (
     <Router>
+      <GlobalStyle />
       <Heading>The Zoo</Heading>
       <Switch>
         <Route exact path='/'>
-          <Animals animals={animals} error={Error} feed={needsFeeding} />
+          <Animals animals={animals} error={Error} />
         </Route>
         <Route path='/animal/:id'>
           <AnimailDetail onFeedAnimal={feedAnimalHandler} feed={needsFeeding} />

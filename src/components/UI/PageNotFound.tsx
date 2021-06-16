@@ -12,11 +12,20 @@ const Heading = styled.h1`
   fontsize: 2rem;
 `;
 
+const StyledLink = styled(Link)`
+  color: blue;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.7;
+  }
+`;
+
 const PageNotFound = () => {
   return (
     <Wrapper>
       <Heading>You took a wrong turn, No animals here!</Heading>
-      <Link to='/'>Back to the animals</Link>
+      <StyledLink to='/'>Back to the animals</StyledLink>
     </Wrapper>
   );
 };

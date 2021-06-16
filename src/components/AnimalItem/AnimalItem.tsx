@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IAnimalDetail } from '../../models/AnimalDetail';
 import FeedBadge from '../UI/FeedBadge';
+import { Container, Heading, StyledLink } from './AnimalItemStyles';
 
 interface itemProps {
-  isHungry: boolean;
   animal: IAnimalDetail;
 }
 
@@ -20,13 +20,14 @@ const AnimalItem = (props: itemProps) => {
   }, [pleaseFeed]);
 
   return (
-    <div>
-      <h3>{props.animal.name}</h3>
+    <Container>
+      <Heading>
+        {props.animal.name} {pleaseFeed && <FeedBadge />}
+      </Heading>
       <p>{props.animal.shortDescription}</p>
-      {pleaseFeed && <FeedBadge />}
 
-      <Link to={`/animal/${props.animal.id}`}>read more</Link>
-    </div>
+      <StyledLink to={`/animal/${props.animal.id}`}>Läs mer</StyledLink>
+    </Container>
   );
 };
 export default AnimalItem;
